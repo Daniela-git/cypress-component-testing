@@ -1,0 +1,23 @@
+name: Component testing
+run-name: ${{ github.actor }} is testing out GitHub Actions
+on:
+  workflow_dispatch:
+jobs:
+  schedule-run:
+    runs-on: ubuntu-latest
+    name: component testing
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: Install packages
+        run: npm install
+      - name: Run script
+        run: |
+          npm run cy:run
